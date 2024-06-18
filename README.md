@@ -1,4 +1,8 @@
 # vue-webapp
+- Vue CLI를 이용한 프로젝트 구성
+- 컴포넌트 기반 설계
+- 컴포넌트 구조화 및 통신 구현
+- ES6, Vuex
 
 ## Project setup
 ```
