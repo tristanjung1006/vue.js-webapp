@@ -1,34 +1,33 @@
 <template>
-  <div>
+  <section>
     <ul>
-      <li v-for="{todoItem, index} in todoItems" v-bind:key="todoItem.item" class="shadow">
+<!--      v-for 디렉티브를 사용할 때 소괄호는 배열이나 객체를 순회할 때 사용되고 {} 중괄호는 Javascript 객체를 정의할 때 사용된다.-->
+      <li v-for="(todoItem, index) in todoItems" class="shadow" v-bind:key="todoItem.item">
         <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}"
            v-on:click="toggleComplete(todoItem, index)"></i>
         <span v-bind:class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
         <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
-          <i class="fas fa-trash-alt"></i>
+          <i class="removeBtn fas fa-trash-alt"></i>
         </span>
       </li>
     </ul>
-  </div>
+  </section>
 </template>
 
 <script>
 export default {
-  data: function () {
+  data: function() {
     return {
       todoItems: []
     }
   },
   methods: {
     removeTodo: function (todoItem, index) {
-      console.log(todoItem, index);
       this.todoItems.splice(index, 1);
       localStorage.removeItem(todoItem);
     },
     toggleComplete: function(todoItem, index) {
       todoItem.completed = !todoItem.completed;
-      // 로컬스토리지 갱신
       localStorage.removeItem(todoItem.item);
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     }
@@ -64,15 +63,16 @@ li {
 }
 .checkBtn {
   line-height: 45px;
+  /* color: black; */
   color: #62acde;
   margin-right: 5px;
 }
 .checkBtnCompleted {
-  color: #b3adad;
+  /* color: #62acde; */
+  color: black;
 }
 .textCompleted {
   text-decoration: line-through;
-  color: #b3adad;
 }
 .removeBtn {
   margin-left: auto;
