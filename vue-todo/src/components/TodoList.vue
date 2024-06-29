@@ -1,6 +1,6 @@
 <template>
-  <section>
-    <ul>
+  <div>
+    <transition-group name="list" tag="p">
 <!--      v-for 디렉티브를 사용할 때 소괄호는 배열이나 객체를 순회할 때 사용되고 {} 중괄호는 Javascript 객체를 정의할 때 사용된다.-->
       <li v-for="(todoItem, index) in propsdata" class="shadow" v-bind:key="todoItem.item">
         <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}"
@@ -10,8 +10,8 @@
           <i class="removeBtn fas fa-trash-alt"></i>
         </span>
       </li>
-    </ul>
-  </section>
+    </transition-group>
+  </div>
 </template>
 
 <script>
@@ -61,5 +61,14 @@ li {
 .removeBtn {
   margin-left: auto;
   color: #de4343;
+}
+
+/* 리스트 아이템 트랜지션 효과 */
+.list-enter-active, .list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
 }
 </style>
