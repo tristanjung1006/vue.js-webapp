@@ -17,8 +17,8 @@ export default {
   methods: {
     addTodo: function () {
       if (this.newTodoItem !== '') {
-        var obj = {completed: false, item: this.newTodoItem};
-        localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
+        // addTodoItem 이벤트를 발생시킨다
+        this.$emit('addTodoItem', this.newTodoItem);
         this.clearInput();
       }
       // this는 자바스크립트 스코프를 지칭한다
