@@ -39,7 +39,10 @@ export default {
     addTodo() {
       if (this.newTodoItem !== '') {
         // addTodoItem 이벤트를 발생시킨다
-        this.$emit('addTodoItem', this.newTodoItem);
+        // this.$emit('addTodoItem', this.newTodoItem);
+        // store.js에 있는 mutation을 실행해야한다
+        const text = this.newTodoItem.trim();
+        this.$store.commit('addOneItem', text);
         this.clearInput();
       } else {
         // 모달 재정의

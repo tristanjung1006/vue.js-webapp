@@ -19,3 +19,12 @@ const로 객체나 배열은 가능, 단순 변수 재정의는 uncaught error
 향상된 객체 리터럴
 
 Alt + J -> 같은 단어 선택하는 단축키 너무 편함
+
+state: 여러 컴포넌트에 공유되는 데이터 data
+getters: 연산된 state 값을 접근하는 속성 computed
+mutations: state값을 변경하는 이벤트 로직, 메서드 methods
+actions: 비동기 처리 로직을 선언하는 메서드 async methods, mutations를 호출하게 되는 구조
+
+처리시점이 예상이 가능한 로직을 mutations에 넣자
+
+중앙 데이터 관리 방식에서 App.vue가 담당하던 것을 store.js로 옮긴다
