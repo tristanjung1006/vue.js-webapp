@@ -2,11 +2,11 @@
   <div>
     <transition-group name="list" tag="p">
 <!--      v-for 디렉티브를 사용할 때 소괄호는 배열이나 객체를 순회할 때 사용되고 {} 중괄호는 Javascript 객체를 정의할 때 사용된다.-->
-      <li v-for="(todoItem, index) in this.$store.state.todoItems" class="shadow" v-bind:key="todoItem.item">
+      <li v-for="(todoItem, index) in this.storedTodoItems" class="shadow" v-bind:key="todoItem.item">
         <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}"
-           v-on:click="toggleComplete(todoItem, index)"></i>
+           v-on:click="toggleComplete({todoItem, index})"></i>
         <span v-bind:class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
-        <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
+        <span class="removeBtn" v-on:click="removeTodo({todoItem, index})">
           <i class="removeBtn fas fa-trash-alt"></i>
         </span>
       </li>
@@ -15,21 +15,36 @@
 </template>
 
 <script>
+import {mapGetters, mapMutations} from "vuex";
+
 export default {
   methods: {
-    removeTodo(todoItem, index) {
-      // this.$emit('removeItem', todoItem, index);
-      // const obj = {
-      //   todoItem,
-      //   index
-      // }
-      // ES6로 프로세스 단축 -> payload에 바로 담아버리기
-      this.$store.commit('removeOneItem', {todoItem, index});
-    },
-    toggleComplete(todoItem, index) {
-      // this.$emit('toggleItem', todoItem, index);
-      this.$store.commit('toggleOneItem', {todoItem, index});
-    }
+    // mutatations과 달리 payload 인자는 암묵적으로 인식이 된다
+    ...mapMutations({
+      removeTodo: 'removeOneItem',
+      toggleComplete: 'toggleOneItem'
+    }),
+
+    // removeTodo(todoItem, index) {
+    //   // this.$emit('removeItem', todoItem, index);
+    //   // const obj = {
+    //   //   todoItem,
+    //   //   index
+    //   // }
+    //   // ES6로 프로세스 단축 -> payload에 바로 담아버리기
+    //   this.$store.commit('removeOneItem', {todoItem, index});
+    // },
+    // toggleComplete(todoItem, index) {
+    //   // this.$emit('toggleItem', todoItem, index);
+    //   this.$store.commit('toggleOneItem', {todoItem, index});
+    // }
+  },
+  computed: {
+    // todoItems() {
+    //   // 템플릿 안에서는 자바스크립트 연산을 최대한 줄이는 것이 권고사항
+    //   return this.$store.getters.storedTodoItems;
+    // }
+    ...mapGetters(['storedTodoItems'])
   }
 }
 </script>
